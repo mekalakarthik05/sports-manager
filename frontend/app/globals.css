@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0f0f12;
+  --card: #16161c;
+  --border: #282830;
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --accent: #e11d48;
+  --accent-gold: #f59e0b;
+  --accent-silver: #94a3b8;
+  --accent-bronze: #b45309;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  @apply bg-dark-900 text-slate-100 antialiased;
+  min-height: 100dvh;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+/* Hide scrollbar but keep scroll */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Smooth scroll for tabs */
+.tabs-scroll {
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+.tabs-scroll > * {
+  scroll-snap-align: start;
+}
+
+/* Card tap feedback */
+.card-tap:active {
+  transform: scale(0.98);
+}
