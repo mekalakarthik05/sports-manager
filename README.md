@@ -214,9 +214,9 @@ Migrations in `database/migrations/` add ownership and role; run them if your DB
 
 ## Git & GitHub
 
-- Repo: `git@github.com:mekalakarthik05/sports-manager.git`
-- After clone: copy `.env.example` to `backend/.env` and set `DATABASE_URL` (Neon).
-- To push (from project root): `git push -u origin main`
+- Remote: `git@github.com:mekalakarthik05/sports-manager.git`
+- After clone: copy `backend/.env.example` to `backend/.env` and set `DATABASE_URL` (Neon).
+- Push from project root: `git push -u origin main` (requires SSH access to GitHub).
 
 ---
 

@@ -2,6 +2,9 @@
 node_modules/
 .pnp
 .pnp.js
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Environment (never commit secrets)
 .env
@@ -10,6 +13,10 @@ node_modules/
 .env.test.local
 .env.production.local
 *.env
+.env.*
+frontend/.env.local
+backend/.env
+
 
 # Build / output
 .next/
@@ -19,11 +26,13 @@ dist/
 logs/
 *.tsbuildinfo
 
+
 # Logs and debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 *.log
+
 
 # IDE / OS
 .idea/
