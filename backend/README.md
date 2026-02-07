@@ -6,16 +6,13 @@ Node.js + Express API with JWT (admin), Socket.IO (live viewers), Redis, Postgre
 
 1. **Environment**
    - Copy `.env.example` to `.env`
-   - Set `DATABASE_URL`, `JWT_SECRET`, `REDIS_URL`, `CORS_ORIGIN`
+   - Set `DATABASE_URL`, `JWT_SECRET`, `CORS_ORIGIN`
 
 2. **Database**
    - Create PostgreSQL database
    - Run `../database/schema.sql`
 
-3. **Redis**
-   - Start Redis (required for live viewers)
-
-4. **Install & run**
+3. **Install & run**
    ```bash
    npm install
    npm run dev
@@ -41,8 +38,6 @@ Node.js + Express API with JWT (admin), Socket.IO (live viewers), Redis, Postgre
 | GET | `/teams/:teamId` | Get team by id |
 | GET | `/points/sport/:sportId` | Sport points table (IPL style) |
 | GET | `/points/event/:eventId` | Event points table (Olympics style) |
-| GET | `/viewers/event/:eventId` | Live & total viewer counts |
-| GET | `/health` | Health check |
 
 ### Admin (Bearer JWT required)
 
@@ -67,15 +62,5 @@ Node.js + Express API with JWT (admin), Socket.IO (live viewers), Redis, Postgre
 | DELETE | `/teams/event/:eventId/team/:teamId` | Remove team from event |
 | PUT | `/points/sport/:sportId/team/:teamId` | Update sport points row (admin-only) |
 
-## Socket.IO (live viewers)
 
-- **URL**: same host as API (e.g. `http://localhost:5000`)
-- **Join event**: emit `event:join` with `eventId` (string)
-- **Leave event**: emit `event:leave` with `eventId`
-- **Receive counts**: listen `event:viewers` → `{ live, total }`
 
-## Production
-
-- Use PM2: `pm2 start ecosystem.config.js`
-- Or Docker: build from Dockerfile (add if needed)
-- Set `NODE_ENV=production`, strong `JWT_SECRET`, proper `CORS_ORIGIN`
