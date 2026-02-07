@@ -36,13 +36,19 @@ Production-ready sports event management platform (IPL/Olympics style). Manage e
 | Password | `admin@123` |
 | Role     | `super_admin` |
 
-Create/update super admin: from `backend/` run:
+Create/update super admin only:
 
 ```bash
-node scripts/seedAdmin.js
+cd backend && node scripts/seedAdmin.js
 ```
 
-**Never** use these credentials in production. Change password or use a separate super admin in production.
+**Full reset** (drops all tables, recreates schema, seeds super admin + test event with 2 sports, 4 teams, 2 matches):
+
+```bash
+cd backend && npm run db:reset
+```
+
+Requires `DATABASE_URL` in `backend/.env`. **Never** use default admin credentials in production. Change password or use a separate super admin in production.
 
 ---
 
@@ -203,6 +209,14 @@ Migrations in `database/migrations/` add ownership and role; run them if your DB
 ├── .gitignore
 └── README.md
 ```
+
+---
+
+## Git & GitHub
+
+- Repo: `git@github.com:mekalakarthik05/sports-manager.git`
+- After clone: copy `.env.example` to `backend/.env` and set `DATABASE_URL` (Neon).
+- To push (from project root): `git push -u origin main`
 
 ---
 

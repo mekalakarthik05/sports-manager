@@ -40,6 +40,7 @@ CREATE TABLE events (
 CREATE INDEX idx_events_dates ON events(start_date, end_date);
 CREATE INDEX idx_events_created ON events(created_at DESC);
 CREATE INDEX idx_events_admin ON events(admin_id);
+CREATE INDEX idx_events_name ON events(name);
 
 -- ============================================================
 -- 3. TEAMS (owned by admin, can participate in owner's events)
@@ -64,6 +65,7 @@ CREATE TABLE event_teams (
     event_id        UUID NOT NULL REFERENCES events(id) ON DELETE CASCADE,
     team_id         UUID NOT NULL REFERENCES teams(id) ON DELETE CASCADE,
     created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     UNIQUE(event_id, team_id)
 );
 
@@ -181,6 +183,8 @@ CREATE TRIGGER admins_updated_at BEFORE UPDATE ON admins
 CREATE TRIGGER events_updated_at BEFORE UPDATE ON events
     FOR EACH ROW EXECUTE PROCEDURE set_updated_at();
 CREATE TRIGGER teams_updated_at BEFORE UPDATE ON teams
+    FOR EACH ROW EXECUTE PROCEDURE set_updated_at();
+CREATE TRIGGER event_teams_updated_at BEFORE UPDATE ON event_teams
     FOR EACH ROW EXECUTE PROCEDURE set_updated_at();
 CREATE TRIGGER sports_updated_at BEFORE UPDATE ON sports
     FOR EACH ROW EXECUTE PROCEDURE set_updated_at();

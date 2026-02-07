@@ -20,17 +20,23 @@ export function MatchCard({ match, sportId, eventId, className }: MatchCardProps
   const team1Name = match.team1_name ?? 'TBD';
   const team2Name = match.team2_name ?? 'TBD';
 
-  // ✅ Winner calculation logic
   let winner: 'team1' | 'team2' | 'draw' | null = null;
-
-  if (
-    isCompleted &&
-    match.team1_score != null &&
-    match.team2_score != null
-  ) {
-    if (match.team1_score > match.team2_score) winner = 'team1';
-    else if (match.team2_score > match.team1_score) winner = 'team2';
-    else winner = 'draw';
+  if (isCompleted) {
+    if (match.winner_team_id) {
+      if (match.winner_team_id === match.team1_id) winner = 'team1';
+      else if (match.winner_team_id === match.team2_id) winner = 'team2';
+    } else if (
+      match.team1_score != null &&
+      match.team2_score != null
+    ) {
+      const s1 = Number(match.team1_score);
+      const s2 = Number(match.team2_score);
+      if (!Number.isNaN(s1) && !Number.isNaN(s2)) {
+        if (s1 > s2) winner = 'team1';
+        else if (s2 > s1) winner = 'team2';
+        else winner = 'draw';
+      }
+    }
   }
 
   return (

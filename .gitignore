@@ -16,6 +16,7 @@ node_modules/
 out/
 build/
 dist/
+logs/
 *.tsbuildinfo
 
 # Logs and debug

@@ -35,6 +35,12 @@ export async function api<T>(
   }
   const res = await fetch(url, { ...options, headers });
   const json = await res.json().catch(() => ({}));
+  if (res.status === 401 && typeof window !== 'undefined') {
+    localStorage.removeItem('admin_token');
+    localStorage.removeItem('admin_data');
+    window.location.href = '/admin/login';
+    throw new Error('Session expired');
+  }
   if (!res.ok) {
     throw new Error(json.message || res.statusText || 'Request failed');
   }
