@@ -8,26 +8,27 @@ const matchRoutes = require('./routes/matchRoutes');
 const teamRoutes = require('./routes/teamRoutes');
 const pointsRoutes = require('./routes/pointsRoutes');
 
-const app = express(); // ✅ DEFINE APP FIRST
+const app = express(); 
 
-/* =========================
-   Middleware
-========================= */
 
 app.use(express.json());
 
-const allowedOrigins = [
-  'https://sports-manager-one.vercel.app',
-  'https://sports-manager-bho3o5wvx-mekalakarthik05s-projects.vercel.app',
-  'http://localhost:3000',
-];
+const allowedOrigins = ['http://localhost:3000'];
 
 app.use(
   cors({
     origin(origin, callback) {
       if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) return callback(null, true);
-      return callback(new Error('CORS not allowed'), false);
+
+      
+      if (
+        origin.endsWith('.vercel.app') ||
+        allowedOrigins.includes(origin)
+      ) {
+        return callback(null, true);
+      }
+
+      return callback(new Error(`CORS blocked for origin: ${origin}`), false);
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
@@ -35,12 +36,10 @@ app.use(
   })
 );
 
-// ✅ REQUIRED for preflight requests
+
 app.options('*', cors());
 
-/* =========================
-   Routes
-========================= */
+
 
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok' });
